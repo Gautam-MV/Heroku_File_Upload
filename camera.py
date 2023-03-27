@@ -37,7 +37,7 @@ class VideoCamera(object):
         cfg.SOLVER.MAX_ITER = 700    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
         cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # faster, and good enough for this toy dataset (default: 512)
         cfg.MODEL.ROI_HEADS.NUM_CLASSES = 6  # (see https://detectron2.readthedocs.io/tutorials/datasets.html#update-the-config-for-new-datasets)
-        cfg.MODEL.WEIGHTS = "static/model_final.pth"
+        cfg.MODEL.WEIGHTS = "static/uploads/model_final.pth"
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5   # set the testing threshold for this model
         cfg.DATASETS.TEST = ()
         self.predictor = DefaultPredictor(cfg)
