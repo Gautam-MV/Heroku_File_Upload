@@ -12,6 +12,9 @@ from detectron2.data import MetadataCatalog, DatasetCatalog
 from detectron2.engine import DefaultTrainer
 from detectron2.data.datasets import register_coco_instances
 
+import zipfile
+with zipfile.ZipFile("model_final.zip","r") as zip_ref:
+    zip_ref.extractall("static")
 
 class VideoCamera(object):
     def __init__(self,filename):
@@ -24,7 +27,7 @@ class VideoCamera(object):
         # as the main.py.
         self.video = cv2.VideoCapture(f'static/uploads/{self.filename}')
         
-        '''
+        
         register_coco_instances("customtrain1", {}, "./instances_train.json", "./train")
         sample_metadata = MetadataCatalog.get("customtrain1")
         dataset_dicts = DatasetCatalog.get("customtrain1")
@@ -38,11 +41,11 @@ class VideoCamera(object):
         cfg.SOLVER.MAX_ITER = 700    # 300 iterations seems good enough for this toy dataset; you will need to train longer for a practical dataset
         cfg.MODEL.ROI_HEADS.BATCH_SIZE_PER_IMAGE = 128   # faster, and good enough for this toy dataset (default: 512)
         cfg.MODEL.ROI_HEADS.NUM_CLASSES = 6  # (see https://detectron2.readthedocs.io/tutorials/datasets.html#update-the-config-for-new-datasets)
-        cfg.MODEL.WEIGHTS = os.path.join(cfg.OUTPUT_DIR, "model_final.pth")
+        cfg.MODEL.WEIGHTS = "static/model_final.pth"
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5   # set the testing threshold for this model
         cfg.DATASETS.TEST = ()
         self.predictor = DefaultPredictor(cfg)
-        '''
+        
 
 
     def __del__(self):
@@ -53,7 +56,7 @@ class VideoCamera(object):
         # We are using Motion JPEG, but OpenCV defaults to capture raw images,
         # so we must encode it into JPEG in order to correctly display the
         # video stream.
-        '''
+        
         outputs = self.predictor(image)
         v = Visualizer(image[:, :, ::-1],
                        metadata=sample_metadata, 
@@ -61,6 +64,7 @@ class VideoCamera(object):
                        instance_mode=ColorMode.IMAGE_BW   # remove the colors of unsegmented pixels)
         v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
         image = v.get_image()[:, :, ::-1]
-        '''
         ret, jpeg = cv2.imencode('.jpg', image)
         return jpeg
+
+
