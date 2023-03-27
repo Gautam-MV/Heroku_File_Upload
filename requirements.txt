@@ -71,3 +71,4 @@ widgetsnbextension==3.6.1
 wincertstore==0.2
 xgboost==0.90
 zipp==2.0.1
+opencv-python
