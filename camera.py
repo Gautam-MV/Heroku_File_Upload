@@ -12,7 +12,6 @@ from detectron2.data import MetadataCatalog, DatasetCatalog
 from detectron2.engine import DefaultTrainer
 from detectron2.data.datasets import register_coco_instances
 
-
 class VideoCamera(object):
     def __init__(self,filename):
         # Using OpenCV to capture from device 0. If you have trouble capturing
