@@ -13,7 +13,7 @@ from detectron2.engine import DefaultTrainer
 from detectron2.data.datasets import register_coco_instances
 
 import zipfile
-with zipfile.ZipFile("model_final.zip","r") as zip_ref:
+with zipfile.ZipFile("static/uploads/model_final.zip","r") as zip_ref:
     zip_ref.extractall("static")
 
 class VideoCamera(object):
