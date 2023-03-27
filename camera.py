@@ -24,6 +24,7 @@ class VideoCamera(object):
         # as the main.py.
         self.video = cv2.VideoCapture(f'static/uploads/{self.filename}')
         
+        '''
         register_coco_instances("customtrain1", {}, "./instances_train.json", "./train")
         sample_metadata = MetadataCatalog.get("customtrain1")
         dataset_dicts = DatasetCatalog.get("customtrain1")
@@ -41,6 +42,8 @@ class VideoCamera(object):
         cfg.MODEL.ROI_HEADS.SCORE_THRESH_TEST = 0.5   # set the testing threshold for this model
         cfg.DATASETS.TEST = ()
         self.predictor = DefaultPredictor(cfg)
+        '''
+
 
     def __del__(self):
         self.video.release()
@@ -50,6 +53,7 @@ class VideoCamera(object):
         # We are using Motion JPEG, but OpenCV defaults to capture raw images,
         # so we must encode it into JPEG in order to correctly display the
         # video stream.
+        '''
         outputs = self.predictor(image)
         v = Visualizer(image[:, :, ::-1],
                        metadata=sample_metadata, 
@@ -57,5 +61,6 @@ class VideoCamera(object):
                        instance_mode=ColorMode.IMAGE_BW   # remove the colors of unsegmented pixels)
         v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
         image = v.get_image()[:, :, ::-1]
+        '''
         ret, jpeg = cv2.imencode('.jpg', image)
         return jpeg
