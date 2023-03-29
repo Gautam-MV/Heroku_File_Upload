@@ -1,16 +1,16 @@
 import cv2
 import numpy as np
-import torch, torchvision
-import detectron2
-from detectron2 import model_zoo
-from detectron2.utils.logger import setup_logger
-from detectron2.engine import DefaultPredictor
-from detectron2.config import get_cfg
-from detectron2.utils.visualizer import Visualizer
-from detectron2.data import MetadataCatalog, DatasetCatalog
+#import torch, torchvision
+#import detectron2
+#from detectron2 import model_zoo
+#from detectron2.utils.logger import setup_logger
+#from detectron2.engine import DefaultPredictor
+#from detectron2.config import get_cfg
+#from detectron2.utils.visualizer import Visualizer
+#from detectron2.data import MetadataCatalog, DatasetCatalog
 
-from detectron2.engine import DefaultTrainer
-from detectron2.data.datasets import register_coco_instances
+#from detectron2.engine import DefaultTrainer
+#from detectron2.data.datasets import register_coco_instances
 
 class VideoCamera(object):
     def __init__(self,filename):
@@ -59,8 +59,8 @@ class VideoCamera(object):
                        scale=0.8, 
                        instance_mode=ColorMode.IMAGE_BW)   # remove the colors of unsegmented pixels)
         v = v.draw_instance_predictions(outputs["instances"].to("cpu"))
-        '''
         image = v.get_image()[:, :, ::-1]
+        '''
         ret, jpeg = cv2.imencode('.jpg', image)
         return jpeg
 
